@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>random</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        label {
+            font-size: 20px;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        input[type="number"], button {
+            background-color: #444;
+            color: #ffffff;
+            padding: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        button {
+            background-color: #444;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        #result, #countdown {
+            font-size: 24px;
+            margin-top: 20px;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        #countdown {
+            font-weight: bold;
+            font-family: 'Sunflower', sans-serif;
+        }
+    </style>
+    <script>
+        function pickNumbers() {
+            var minNumber = parseInt(document.getElementById("minNumber").value);
+            var maxNumber = parseInt(document.getElementById("maxNumber").value);
+            var pickCount = parseInt(document.getElementById("pickCount").value);
+            var numbers = [];
+
+            // 최소값과 최대값 사이의 숫자를 배열에 추가
+            for (var i = minNumber; i <= maxNumber; i++) {
+                numbers.push(i);
+            }
+
+            var pickedNumbers = [];
+
+            // 배열에서 지정한 개수만큼의 숫자를 무작위로 선택
+            for (var j = 0; j < pickCount; j++) {
+                var randomIndex = Math.floor(Math.random() * numbers.length);
+                var pickedNumber = numbers[randomIndex];
+                pickedNumbers.push(pickedNumber);
+                numbers.splice(randomIndex, 1);
+            }
+
+            // 선택된 숫자를 결과로 출력
+            document.getElementById("result").innerHTML = "뽑힌 숫자: " + pickedNumbers.join(", ");
+        }
+
+        function startGame() {
+            var duration = parseInt(document.getElementById("timer").value);
+
+            // 숫자 뽑기 함수 호출
+            pickNumbers();
+
+            // 제한 시간 동안 시간 경과 및 "끝!!!" 표시
+            var countdown = setInterval(function () {
+                var countdownDisplay = document.getElementById("countdown");
+                countdownDisplay.textContent = duration;
+
+                if (duration === 0) {
+                    clearInterval(countdown);
+                    document.getElementById("result").innerHTML = "끝!!!";
+                    document.getElementById("startButton").style.display = "block";
+                }
+
+                duration--;
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>random</h1>
+        <label for="minNumber">최소값:</label>
+        <input type="number" id="minNumber" min="1" required>
+        <label for="maxNumber">최대값:</label>
+        <input type="number" id="maxNumber" min="1" required>
+        <label for="pickCount">뽑는 개수:</label>
+        <input type="number" id="pickCount" min="1" required>
+        <label for="timer">제한 시간(초):</label>
+        <input type="number" id="timer" min="1" required>
+        <h1> </h1>
+        <button id="startButton" onclick="startGame()">시작</button>
+        <p id="result"></p>
+        <div id="countdown"></div>
+    </div>
+</body>
+</html>

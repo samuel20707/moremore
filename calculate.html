@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>calculate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Moirai+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #222;
+      color: #fff;
+      font-family: 'Do Hyeon', sans-serif;
+    }
+
+    .calculator {
+      width: 300px;
+      height: 520px;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+      font-family: 'Do Hyeon', sans-serif;
+    }
+
+    #display {
+      grid-column: 1 / span 4;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 24px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      text-align: right;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 24px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #666;
+      color:rgb(0, 0, 0)
+    }
+
+    button:active {
+      background-color: #444;
+    }
+
+    .button-0 {
+      grid-column: 2 / span 1;
+    }
+
+    .button-equal {
+      grid-column: 4 / span 1;
+      grid-row: 6 / span 1;
+      background-color: #fc8621;
+    }
+
+    .button-equal:hover {
+      background-color: #e57217;
+    }
+
+    .button-color {
+      grid-column: 1 / span 1;
+      grid-row: 2 / span 1;
+      color: rgb(255, 255, 255)
+    }
+
+    .button-color:hover {
+      color: red
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" readonly>
+    <button class="button-color" onclick="clearDisplay()">C</button>
+    <button onclick="appendToDisplay('x')">x</button>
+    <button onclick="appendToDisplay('y')">y</button>
+    <button onclick="appendToDisplay('/')">÷</button>
+    <button onclick="appendToDisplay('7')">7</button>
+    <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+    <button onclick="appendToDisplay('*')">×</button>
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button>
+    <button onclick="appendToDisplay('6')">6</button>
+    <button onclick="appendToDisplay('-')">－</button>
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+    <button onclick="appendToDisplay('+')">＋</button>
+    <button class="button-equal" onclick="calculate()">=</button>
+    <button onclick="appendToDisplay('-1')">+/-</button>
+    <button class="button-0" onclick="appendToDisplay('0')">0</button>
+    <button onclick="appendToDisplay('.')">.</button>
+  </div>
+
+  <script>
+    function appendToDisplay(value) {
+      document.getElementById("display").value += value;
+    }
+
+    function calculate() {
+      const display = document.getElementById("display");
+      const result = eval(display.value);
+      display.value = result;
+    }
+
+    function clearDisplay() {
+      document.getElementById("display").value = "";
+    }
+  </script>
+</body>
+</html>
